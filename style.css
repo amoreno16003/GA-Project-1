@@ -1,0 +1,46 @@
+#container {
+    max-width: 50em;
+    height: 70vh;
+    background-color: black;
+    margin: 0 auto;
+    padding: 1em;
+    display: grid;
+    grid-gap: 1em;
+    grid-template-rows: .125fr .75fr .125fr;
+    grid-template-columns: .125fr .75fr .125fr;
+    grid-template-areas: "left top top"
+                          "left game game" 
+                          "left game game";
+    }
+
+    canvas {
+        /* background-image: url('../img/stone.png'); */
+        /* background-repeat: repeat; */
+        background-color: #222;
+        width: 100%;
+        height: 100%;
+      }
+
+    #top {
+        grid-area: top;
+        background: red;
+        text-align: center;
+      }
+      
+      #left {
+        grid-area: left;
+        background: red;
+        /* background-color: #222; */
+        /* background-image: url('../img/funky-lines.png'); */
+      }
+
+      main {
+        grid-area: game;
+      }
+      #divider{
+    
+        height: 2px;
+        width: 100%;
+        background-color: black;
+        margin: 0 auto;
+    }
