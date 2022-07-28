@@ -8,9 +8,9 @@
     grid-gap: 1em;
     grid-template-rows: .125fr .75fr .125fr;
     grid-template-columns: .125fr .75fr .125fr;
-    grid-template-areas: "left top top"
-                          "left game game" 
-                          "left game game";
+    grid-template-areas: "left top right"
+                          "left game right" 
+                          "left bottom right";
     }
 
     canvas {
@@ -26,12 +26,20 @@
         background: red;
         text-align: center;
       }
+      #bottom {
+        grid-area: bottom;
+        background: red;
+      }
       
       #left {
         grid-area: left;
         background: red;
         /* background-color: #222; */
         /* background-image: url('../img/funky-lines.png'); */
+      }
+      #right {
+        grid-area: right;
+        background: red;
       }
 
       main {

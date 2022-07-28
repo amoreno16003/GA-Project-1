@@ -1,14 +1,17 @@
 //GLOBAL VARIABLES
-const game = document.getElementById('game');
+var game = document.getElementById('game');
+
 const roundNumContent = document.getElementById('roundNum');
 const damageLevelContent = document.getElementById('damageLevel')
 
 const ctx = game.getContext('2d');
-
+console.log(game.width+" "+game.height);
 let rambo; //Main Character
 let health;
 let money; 
 let damageLevel;
+
+var arrayOfBullets = [];
 
 //CLASSES
  
@@ -43,20 +46,32 @@ class Bullet{
     }
     moveBulletUp(){
         this.y -= 3;
-        this.render();
+        //this.render();
+        if (this.y <= 0 || this.y >= game.height || this.x <= 0 || this.x >= game.width){
+            this.alive = false;
+        }
     }
 
     moveBulletRight(){
-        this.x +=3;
+        this.x +=6;
         this.render();
+        if (this.y <= 0 || this.y >= game.height || this.x <= 0 || this.x >= game.width){
+            this.alive = false;
+        }
     }
     moveBulletDown(){
         this.y += 3;
         this.render();
+        if (this.y <= 0 || this.y >= game.height || this.x <= 0 || this.x >= game.width){
+            this.alive = false;
+        }
     }
     moveBulletLeft(){
-        this.x -=3;
+        this.x -=6;
         this.render();
+        if (this.y <= 0 || this.y >= game.height || this.x <= 0 || this.x >= game.width){
+            this.alive = false;
+        }
     }
 }
 
@@ -80,44 +95,89 @@ function stopInterval(whatToStop){
 //Starting Screen
 document.addEventListener('keydown', movementHandler);
 window.addEventListener('DOMContentLoaded', function() {
-    rambo = new Hero((game.width/2)-5, (game.height/2)-5, 10, 10, 'blue');
+    rambo = new Hero((game.width/2)-5, (game.height/2)-5, 10, 7.5, 'blue');
     
     const runningGame = this.setInterval(gameLoop, 60);
     
 });
 
 ///MOVEMENT HANDLER
+let i = 0;
 let testBullet = new Bullet(game.width/2, game.height/2, 1, 1, "yellow");
+testBullet.alive = false;
+arrayOfBullets.push(testBullet);
 function movementHandler(event){
+    
     console.log(`Movement is: ${event.key}`);
-    if (event.key === "ArrowUp"){
-        //console.log("UP");
-        //let upBullet = new Bullet(game.width/2, game.height/2, 1, 1, "yellow");
-        setInterval(function() {
-            testBullet.moveBulletUp();
-            if (testBullet.alive === false) {
-                clearInterval(testBullet);
-            }
-        }, 100);
+    
+    if (arrayOfBullets[i].alive === false){
+        i++;
+        
+        if (event.key === "ArrowUp"){
+            arrayOfBullets.push(new Bullet(game.width/2, game.height/2, 1, 3, "yellow"));
+            //console.log("UP");
+            //let upBullet = new Bullet(game.width/2, game.height/2, 1, 1, "yellow");
+            
+            let upInterval = setInterval(function() {
+                // console.log(i);
+                // console.log(arrayOfBullets[i].alive)
+                arrayOfBullets[i].moveBulletUp();
+                arrayOfBullets[i].render();
+                if (arrayOfBullets[i].alive === false) {
+                    clearInterval(upInterval);
+                }
+            }, 20);
+    
+        }
+        else if (event.key === "ArrowRight"){
+            //console.log("RIGHT")
+            //testBullet.moveBulletRight();
+            arrayOfBullets.push(new Bullet(game.width/2, game.height/2, 5, 1, "red"));
+            let rightInterval = setInterval(function() {
+                // console.log(i);
+                // console.log(arrayOfBullets[i].alive)
+                arrayOfBullets[i].moveBulletRight();
+                if (arrayOfBullets[i].alive === false) {
+                    clearInterval(rightInterval);
+                }
+            }, 20);
+        }
+        else if (event.key === "ArrowDown"){
+            //testBullet.moveBulletDown();
+            arrayOfBullets.push(new Bullet(game.width/2, game.height/2, 1, 3, "yellow"));
+            let downInterval = setInterval(function() {
+                // console.log(i);
+                // console.log(arrayOfBullets[i].alive)
+                arrayOfBullets[i].moveBulletDown();
+                if (arrayOfBullets[i].alive === false) {
+                    clearInterval(downInterval);
+                }
+            }, 20);
+            //console.log("DOWN");
+        }
+        else if (event.key === "ArrowLeft"){
+            // testBullet.moveBulletLeft();
+            //console.log("LEFT");
+            arrayOfBullets.push(new Bullet(game.width/2, game.height/2, 5, 1, "red"));
+            let leftInterval = setInterval(function() {
+                // console.log(i);
+                // console.log(arrayOfBullets[i].alive)
+                arrayOfBullets[i].moveBulletLeft();
+                if (arrayOfBullets[i].alive === false) {
+                    clearInterval(leftInterval);
+                }
+            }, 20);
+        }
+    }
+    //var tempBullet = new Bullet(game.width/2, game.height/2, 1, 1, "yellow");
+    //arrayOfBullets.push(new Bullet(game.width/2, game.height/2, 1, 1, "yellow"));
+    //arrayOfBullets.push(new Bullet(game.width/2, game.height/2, 1, 1, "yellow"));
 
-    }
-    else if (event.key === "ArrowRight"){
-        //console.log("RIGHT")
-        //testBullet.moveBulletRight();
-        setInterval(function() 
-        { testBullet.moveBulletRight(); if (testBullet.alive === false) {clearInterval(testBullet)}}, 100 );;
-    }
-    else if (event.key === "ArrowDown"){
-        //testBullet.moveBulletDown();
-        setInterval( function() { testBullet.moveBulletDown(); if (testBullet.alive === false) {clearInterval(testBullet)}}, 100 );
-        //console.log("DOWN");
-    }
-    else if (event.key === "ArrowLeft"){
-        // testBullet.moveBulletLeft();
-        //console.log("LEFT");
-        setInterval( function() { testBullet.moveBulletLeft(); if (testBullet.alive === false) {clearInterval(testBullet)}}, 100 );
-    }
+    console.log(arrayOfBullets);
+    
+    
     //return event.key;
+    
 }
 
 //Game Loop
@@ -135,7 +195,6 @@ function gameLoop(){
 }
 
 //let aBullet = setInterval( function() { bulletUpdate(testBullet); if (testBullet.alive === false) {clearInterval(aBullet)}}, 100 );
-
 
 
 
