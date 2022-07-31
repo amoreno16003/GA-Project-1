@@ -16,9 +16,13 @@
     canvas {
         /* background-image: url('../img/stone.png'); */
         /* background-repeat: repeat; */
-        background-color: #222;
+        /* background-color: #222; */
         width: 100%;
         height: 100%;
+        background-image: url(https://marmoset.co/wp-content/uploads/2019/08/mrf_bushes_forest.jpg);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+       
       }
 
     #top {

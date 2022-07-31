@@ -1,6 +1,9 @@
+function getRandomInt(min, max){
+    return (Math.floor(Math.random() * (max-min)+min));
+}
+
 //GLOBAL VARIABLES
 var game = document.getElementById('game');
-
 const roundNumContent = document.getElementById('roundNum');
 const damageLevelContent = document.getElementById('damageLevel')
 
@@ -10,6 +13,9 @@ let rambo; //Main Character
 let health;
 let money; 
 let damageLevel;
+
+//Game Progression
+let roundNum = 1;
 
 var arrayOfBullets = [];
 
@@ -28,6 +34,23 @@ class Hero{
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
     }
+    
+}
+class Enemy1{
+    constructor(x, y, width, height, color){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+
+        this.render = function() {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    
+    
     
 }
 
@@ -96,7 +119,7 @@ function stopInterval(whatToStop){
 document.addEventListener('keydown', movementHandler);
 window.addEventListener('DOMContentLoaded', function() {
     rambo = new Hero((game.width/2)-5, (game.height/2)-5, 10, 7.5, 'blue');
-    
+    roundNumContent.textContent = `Round: ${roundNum}`;
     const runningGame = this.setInterval(gameLoop, 60);
     
 });
@@ -180,6 +203,12 @@ function movementHandler(event){
     
 }
 
+let tempEnemy = new Enemy1(game.width-20, game.height/2, 20, 20, "purple");
+let enemyArr = [];
+enemyArr.push(new Enemy1(0, game.height/2, 20, 20, "black"));
+enemyArr.push(new Enemy1(game.width-20, game.height/2, 20, 20, "purple"));
+//enemyArr.push(tempEnemy);
+
 //Game Loop
 
 function gameLoop(){
@@ -189,8 +218,25 @@ function gameLoop(){
     if (testBullet.alive){
         //bulletUpdate(testBullet);
     }
+    for (let i = 0; i < enemyArr.length; i++){
+        enemyArr[i].render();
+        //console.log(i);
+        //console.log(enemyArr[i]);
+    }
+
     
+    // setTimeout(function(){
+    //      enemyArr[0].x += 1;
+    //      enemyArr[1].x -= 1;
+    //     
+    // }, 100);
+
+    enemyArr[0].AttackRight();
+   
+    
+
     rambo.render();
+    
 
 }
 
