@@ -6,13 +6,15 @@ function getRandomInt(min, max){
 var game = document.getElementById('game');
 const roundNumContent = document.getElementById('roundNum');
 const damageLevelContent = document.getElementById('damageLevel')
-
 const ctx = game.getContext('2d');
 console.log(game.width+" "+game.height);
 let rambo; //Main Character
 let health;
 let money; 
 let damageLevel;
+
+//PICTURE VARIABLES
+achiliesFacingLeft = document.getElementById("AFL");
 
 //Game Progression
 let roundNum = 1;
@@ -22,16 +24,20 @@ var arrayOfBullets = [];
 //CLASSES
  
 class Hero{
-    constructor(x, y, width, height, color){
+    constructor(x, y, width, height, color, image){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.color = color;
+        this.image = image;
 
+        // this.render = function() {
+        //     ctx.fillStyle = color;
+        //     ctx.fillRect(this.x, this.y, this.width, this.height);
+        // }
         this.render = function() {
-            ctx.fillStyle = color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         }
     }
     
@@ -43,6 +49,10 @@ class Enemy1{
         this.width = width;
         this.height = height;
         this.color = color;
+        this.startPos = "Temp";
+        this.rendered = false;
+        this.index = null;
+        this.health = 100;
 
         this.render = function() {
             ctx.fillStyle = color;
@@ -62,6 +72,7 @@ class Bullet{
         this.height = height;
         this.color = color;
         this.alive = true;
+        this.collision = 0;
         this.render = function(){
             ctx.fillStyle = color;
             ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -112,13 +123,32 @@ function bulletUpdate(bullet){
     
 }
 
-function stopInterval(whatToStop){
-    clearInterval(whatToStop);
+function detectHit(bulletClass, EnemyClass){
+    let hitTest = 
+    bulletClass.y + bulletClass.height > EnemyClass.y &&
+    bulletClass.y < EnemyClass.y + EnemyClass.height &&
+    bulletClass.x + bulletClass.width > EnemyClass.x &&
+    bulletClass.x < EnemyClass.x + EnemyClass.width;
+
+    if (hitTest){
+        alert("Enemy has been hit");
+        bulletClass.collision++;
+        EnemyClass.health -= 50;
+        return true;
+    }
 }
+
+function delay(arr, i) {
+    setTimeout(() => {
+      arr[i].render();
+    }, 2000);
+  }
+
 //Starting Screen
 document.addEventListener('keydown', movementHandler);
 window.addEventListener('DOMContentLoaded', function() {
-    rambo = new Hero((game.width/2)-5, (game.height/2)-5, 10, 7.5, 'blue');
+    rambo = new Hero((game.width/2)-12.75, (game.height/2)-16, 25.5, 32, 'blue', achiliesFacingLeft);
+    //rambo = new Hero(achiliesFacingLeft, game.width/2, game.height/2);
     roundNumContent.textContent = `Round: ${roundNum}`;
     const runningGame = this.setInterval(gameLoop, 60);
     
@@ -205,10 +235,41 @@ function movementHandler(event){
 
 let tempEnemy = new Enemy1(game.width-20, game.height/2, 20, 20, "purple");
 let enemyArr = [];
-enemyArr.push(new Enemy1(0, game.height/2, 20, 20, "black"));
-enemyArr.push(new Enemy1(game.width-20, game.height/2, 20, 20, "purple"));
+enemyArr.push(new Enemy1(0, game.height/2-10, 20, 20, "black"));
+enemyArr.push(new Enemy1(game.width-20, game.height/2-10, 20, 20, "purple"));
+enemyArr.push(new Enemy1(game.width/2-10, 0, 20, 20, "yellow"));
+enemyArr.push(new Enemy1(game.width/2-10, game.height-20, 20, 20, "green"));
+
+
+//First Round
+let startingPositions = ['Top', 'Right', 'Bottom', 'Left'];
+let roundOneArr = [];
+for (let i = 0; i < 5; i++){
+    roundOneArr.push(new Enemy1(game.width-20, game.height/2-10, 20, 20, "purple"));
+    roundOneArr[i].startPos = startingPositions[getRandomInt(0, 4)];
+    roundOneArr[i].index = roundOneArr.length-1;
+    if (roundOneArr[i].startPos === 'Top'){
+        roundOneArr[i].x = game.width/2-10;
+        roundOneArr[i].y = 0;
+    }
+    else if (roundOneArr[i].startPos === 'Right'){
+        roundOneArr[i].x = game.width-20;
+        roundOneArr[i].y = game.height/2-10;
+    }
+    else if (roundOneArr[i].startPos === 'Bottom'){
+        roundOneArr[i].x = game.width/2-10;
+        roundOneArr[i].y = game.height-20;
+    }
+    else if (roundOneArr[i].startPos === 'Left'){
+        roundOneArr[i].x = 0;
+        roundOneArr[i].y = game.height/2-10;
+    }
+}
+console.log(roundOneArr);
 //enemyArr.push(tempEnemy);
 
+//Enemy Movement
+let enemyCounter = 0;
 //Game Loop
 
 function gameLoop(){
@@ -218,20 +279,100 @@ function gameLoop(){
     if (testBullet.alive){
         //bulletUpdate(testBullet);
     }
-    for (let i = 0; i < enemyArr.length; i++){
-        enemyArr[i].render();
-        //console.log(i);
-        //console.log(enemyArr[i]);
+    // setInterval(function(){
+    //     enemyArr[enemyCounter].rendered = true;
+    //     if (enemyCounter < enemyArr.length-1){
+    //         enemyCounter++;
+    //     }
+        
+    // }, 1000)
+    
+    for (let i=0; i<roundOneArr.length; i++) {
+        task(i);
+     }
+       
+     function task(i) {
+       setTimeout(function() {
+           // Add tasks to do
+           //console.log(roundOneArr[i].startPos);
+           if (roundOneArr[i] !== undefined){
+                roundOneArr[i].rendered = true;
+           }
+       }, 2000 * i+1);
     }
 
-    
-    // setTimeout(function(){
-    //      enemyArr[0].x += 1;
-    //      enemyArr[1].x -= 1;
-    //     
-    // }, 100);
+    // function task2(i){
+    //     setTimeout(function() {
+    //         // Add tasks to do
+    //         if (roundOneArr[i].startPos === 'Top'){
+    //             roundOneArr[i].y += 1;
+    //         }
+    //         else if (roundOneArr[i].startPos === 'Right'){
+    //             roundOneArr[i].x -= 1;
+    //         }
+    //         else if (roundOneArr[i].startPos === 'Bottom'){
+    //             roundOneArr[i].y -= 1;
+    //         }
+    //         else if (roundOneArr[i].startPos === 'Left'){
+    //             roundOneArr[i].x += 1;
+    //         }
+    //     }, 100);
+    // }
+    for (let i = 0; i < roundOneArr.length; i++){
+        if (roundOneArr[i].rendered === true){
+            roundOneArr[i].render();
+            
+        }
+    }
+    // if (roundOneArr[i].rendered === true){
+    //     setTimeout(function() {
+    //         // Add tasks to do
+    //         if (roundOneArr[i].startPos === 'Top'){
+    //             roundOneArr[i].y += 1;
+    //         }
+    //         else if (roundOneArr[i].startPos === 'Right'){
+    //             roundOneArr[i].x -= 1;
+    //         }
+    //         else if (roundOneArr[i].startPos === 'Bottom'){
+    //             roundOneArr[i].y -= 1;
+    //         }
+    //         else if (roundOneArr[i].startPos === 'Left'){
+    //             roundOneArr[i].x += 1;
+    //         }
+    //     }, 100);
+    // }
 
-    enemyArr[0].AttackRight();
+    
+    setTimeout(function(){
+        for (let i = 0; i < roundOneArr.length; i++){
+            if (roundOneArr[i].rendered === true){
+                if (roundOneArr[i].startPos === 'Top'){
+                    roundOneArr[i].y += 1;
+                }
+                else if (roundOneArr[i].startPos === 'Right'){
+                    roundOneArr[i].x -= 1;
+                }
+                else if (roundOneArr[i].startPos === 'Bottom'){
+                    roundOneArr[i].y -= 1;
+                }
+                else if (roundOneArr[i].startPos === 'Left'){
+                    roundOneArr[i].x += 1;
+                }
+            }
+            
+        }
+         
+        
+    }, 10);
+    //console.log(roundOneArr);
+    for (let i = 0; i < roundOneArr.length; i++){
+        if (arrayOfBullets[arrayOfBullets.length-1].collision === 0){
+            detectHit(arrayOfBullets[arrayOfBullets.length-1], roundOneArr[i]);
+            if (roundOneArr[i].health <= 0){
+                roundOneArr.splice(i, 1);
+            }
+        }
+    }
    
     
 
@@ -239,9 +380,6 @@ function gameLoop(){
     
 
 }
-
-//let aBullet = setInterval( function() { bulletUpdate(testBullet); if (testBullet.alive === false) {clearInterval(aBullet)}}, 100 );
-
 
 
 
