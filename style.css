@@ -11,6 +11,28 @@
     grid-template-areas: "left top right"
                           "left game right" 
                           "left bottom right";
+    margin-top: 100px;
+    }
+
+    #startscreen-images{
+        text-align: center;
+        margin-top: 180px;
+    }
+    #gameover-screen-images{
+        text-align: center;
+        margin-top: 150px;
+    }
+    #generatedtext3{
+        width: 600px;
+        height: 100px;
+    }
+    #start-button {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        margin: 0;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
     }
 
     canvas {
@@ -22,7 +44,26 @@
         background-image: url(https://marmoset.co/wp-content/uploads/2019/08/mrf_bushes_forest.jpg);
         background-repeat: no-repeat;
         background-size: 100% 100%;
+        text-align: center;
        
+    }
+
+
+    
+    #startScreen {
+        position: fixed; /* Sit on top of the page content */
+        display: block; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* background-color: white; Black background with opacity */
+        background-image: url(https://cdn.wallpapersafari.com/79/1/ZMdOKY.jpg);
+        background-size: cover;
+        z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+        /* cursor: pointer; Add a pointer on hover */
       }
 
     #top {
@@ -56,3 +97,159 @@
         background-color: black;
         margin: 0 auto;
     }
+
+    /* <!-- HTML !-->
+    <button class="button-49" role="button">Button 49</button> */
+    
+    /* CSS */
+    #start-button,
+    #start-button:after {
+      width: 150px;
+      height: 76px;
+      line-height: 78px;
+      font-size: 20px;
+      font-family: 'Bebas Neue', sans-serif;
+      background: linear-gradient(45deg, transparent 5%, #FF013C 5%);
+      border: 0;
+      color: #fff;
+      letter-spacing: 3px;
+      box-shadow: 6px 0px 0px #00E6F6;
+      outline: transparent;
+      position: relative;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    
+    #start-button:after {
+      --slice-0: inset(50% 50% 50% 50%);
+      --slice-1: inset(80% -6px 0 0);
+      --slice-2: inset(50% -6px 30% 0);
+      --slice-3: inset(10% -6px 85% 0);
+      --slice-4: inset(40% -6px 43% 0);
+      --slice-5: inset(80% -6px 5% 0);
+      
+      content: 'Be Fearful';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 3%, #00E6F6 3%, #00E6F6 5%, #FF013C 5%);
+      text-shadow: -3px -3px 0px #F8F005, 3px 3px 0px #00E6F6;
+      clip-path: var(--slice-0);
+    }
+    
+    #start-button:hover:after {
+      animation: 1s glitch;
+      animation-timing-function: steps(2, end);
+    }
+    
+    @keyframes glitch {
+      0% {
+        clip-path: var(--slice-1);
+        transform: translate(-20px, -10px);
+      }
+      10% {
+        clip-path: var(--slice-3);
+        transform: translate(10px, 10px);
+      }
+      20% {
+        clip-path: var(--slice-1);
+        transform: translate(-10px, 10px);
+      }
+      30% {
+        clip-path: var(--slice-3);
+        transform: translate(0px, 5px);
+      }
+      40% {
+        clip-path: var(--slice-2);
+        transform: translate(-5px, 0px);
+      }
+      50% {
+        clip-path: var(--slice-3);
+        transform: translate(5px, 0px);
+      }
+      60% {
+        clip-path: var(--slice-4);
+        transform: translate(5px, 10px);
+      }
+      70% {
+        clip-path: var(--slice-2);
+        transform: translate(-10px, 10px);
+      }
+      80% {
+        clip-path: var(--slice-5);
+        transform: translate(20px, -10px);
+      }
+      90% {
+        clip-path: var(--slice-1);
+        transform: translate(-10px, 0px);
+      }
+      100% {
+        clip-path: var(--slice-1);
+        transform: translate(0);
+      }
+    }
+    
+    @media (min-width: 768px) {
+    #start-button,
+    #start-button:after {
+        width: 200px;
+        height: 86px;
+        line-height: 88px;
+      }
+    }
+    #gameover-screen{
+        position: fixed; /* Sit on top of the page content */
+        display: none; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* background-color: white; Black background with opacity */
+        background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e090c796-b870-437e-93ec-bc3ea196a4d9/deg0gih-3f624113-ac08-45b6-9857-cc705ab5f734.jpg/v1/fill/w_1280,h_1024,q_75,strp/zombies_in_the_woods_by_ferdinandladera_deg0gih-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcL2UwOTBjNzk2LWI4NzAtNDM3ZS05M2VjLWJjM2VhMTk2YTRkOVwvZGVnMGdpaC0zZjYyNDExMy1hYzA4LTQ1YjYtOTg1Ny1jYzcwNWFiNWY3MzQuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.5VqDmcj9a2Gwxnf-NDhcrIM9EwG-ZSztkBsM973BnUM);
+        background-size: cover;
+        z-index: 2; 
+    }
+
+    body {
+        height: 100%;
+        /* max-height: 600px; */
+        width: 95%;
+        background-color: hsla(200,40%,30%,.4);
+        background-image:		
+            url('https://78.media.tumblr.com/cae86e76225a25b17332dfc9cf8b1121/tumblr_p7n8kqHMuD1uy4lhuo1_540.png'), 
+            url('https://78.media.tumblr.com/66445d34fe560351d474af69ef3f2fb0/tumblr_p7n908E1Jb1uy4lhuo1_1280.png'),
+            url('https://78.media.tumblr.com/8cd0a12b7d9d5ba2c7d26f42c25de99f/tumblr_p7n8kqHMuD1uy4lhuo2_1280.png'),
+            url('https://78.media.tumblr.com/5ecb41b654f4e8878f59445b948ede50/tumblr_p7n8on19cV1uy4lhuo1_1280.png'),
+            url('https://78.media.tumblr.com/28bd9a2522fbf8981d680317ccbf4282/tumblr_p7n8kqHMuD1uy4lhuo3_1280.png');
+        background-repeat: repeat-x;
+        background-position: 
+            0 20%,
+            0 100%,
+            0 50%,
+            0 100%,
+            0 0;
+        background-size: 
+            2500px,
+            800px,
+            500px 200px,
+            1000px,
+            400px 260px;
+        animation: 50s para infinite linear;
+        }
+    
+    @keyframes para {
+        100% {
+            background-position: 
+                -5000px 20%,
+                -800px 95%,
+                500px 50%,
+                1000px 100%,
+                400px 0;
+            }
+        }
