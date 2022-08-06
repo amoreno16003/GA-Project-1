@@ -196,7 +196,7 @@ document.addEventListener('keydown', movementHandler);
 window.addEventListener('DOMContentLoaded', function() {
     rambo = new Hero((game.width/2)-16, (game.height/2)-13.25, 32, 26.5, 'blue', MageFrontFrame1); //32 53
     //rambo = new Hero(achiliesFacingLeft, game.width/2, game.height/2);
-    roundNumContent.textContent = `Round: ${roundNum}`;
+    // roundNumContent.textContent = `Round: ${roundNum}`;
     const runningGame = this.setInterval(function() {
         if (gamePaused !== true){
             gameLoop();
@@ -323,7 +323,7 @@ let enemyArr = [];
 //First Round
 let startingPositions = ['Top', 'Right', 'Bottom', 'Left'];
 let roundOneArr = [];
-for (let i = 0; i < 5; i++){
+for (let i = 0; i < 25; i++){
     roundOneArr.push(new Enemy1(game.width-20, game.height/2-10, 32, 26.5, "purple", Enemy1Right1));
     roundOneArr[i].startPos = startingPositions[getRandomInt(0, 4)];
     if (roundOneArr[i].startPos === 'Top'){
@@ -376,7 +376,7 @@ function gameLoop(){
            if (roundOneArr[i] !== undefined){
                 roundOneArr[i].rendered = true;
            }
-       }, 2000 * i+1);
+       }, 3000 * i+1);
     }
 
     
@@ -416,7 +416,7 @@ function gameLoop(){
     }, 10);
     for (let i = 0; i < roundOneArr.length; i++){
         if (detectHit(roundOneArr[i], rambo)){
-            health -= 0.5;
+            health -= 1;
             Math.round(health * 100) / 100
             healthLevelContent.textContent = `${health}`;
             if (health <= 0){
@@ -437,7 +437,9 @@ function gameLoop(){
     }
 
     
-    
+    if (totalKills === 25){
+        document.getElementById("win-screen").style.display = "block";
+    }
     
 
     rambo.render();

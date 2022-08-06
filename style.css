@@ -22,6 +22,11 @@
         text-align: center;
         margin-top: 150px;
     }
+    #win-screen-images{
+        text-align: center;
+        margin-top: 250px;
+    }
+    
     #generatedtext3{
         width: 600px;
         height: 100px;
@@ -212,6 +217,20 @@
         bottom: 0;
         /* background-color: white; Black background with opacity */
         background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e090c796-b870-437e-93ec-bc3ea196a4d9/deg0gih-3f624113-ac08-45b6-9857-cc705ab5f734.jpg/v1/fill/w_1280,h_1024,q_75,strp/zombies_in_the_woods_by_ferdinandladera_deg0gih-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcL2UwOTBjNzk2LWI4NzAtNDM3ZS05M2VjLWJjM2VhMTk2YTRkOVwvZGVnMGdpaC0zZjYyNDExMy1hYzA4LTQ1YjYtOTg1Ny1jYzcwNWFiNWY3MzQuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.5VqDmcj9a2Gwxnf-NDhcrIM9EwG-ZSztkBsM973BnUM);
+        background-size: cover;
+        z-index: 2; 
+    }
+    #win-screen{
+        position: fixed; /* Sit on top of the page content */
+        display: none; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* background-color: white; Black background with opacity */
+        background-image: url(https://cdn.wallpapersafari.com/58/78/6J3AMV.png);
         background-size: cover;
         z-index: 2; 
     }
