@@ -3,7 +3,7 @@ SEI621 Project-1: "Last Man Standing"
 
 A classic tower defense style game 
 
-To play Karen's Revenge [https://amoreno16003.github.io/last-man-standing/](https://amoreno16003.github.io/last-man-standing/)
+To play Last Man Standing [https://amoreno16003.github.io/last-man-standing/](https://amoreno16003.github.io/last-man-standing/)
 
 ## How to Play
 
@@ -23,7 +23,7 @@ This project was created as classwork for General Assembly's Software Engineerin
 
 ## How it Works
 
-"Karen's Revenge" runs within a js/html canvas element, the game is continually being rendered by the `render()` function. This function runs every 60ms and contains all other functions used in order to make this work. 
+Last Man Standing runs within a js/html canvas element, the game is continually being rendered by the `render()` function. This function runs every 60ms and contains all other functions used in order to make this work. 
 
 I used classes to create the userCharacter, the enemies, and the bullets that are being rendered by userInput. Using setInterval/setTimeout allowed me to be able to animate all the characters using different pictures for each frame of each animation. Around 50+ pictures currently. 
 
