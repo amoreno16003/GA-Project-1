@@ -60,10 +60,82 @@ let MageRightFramesArr = [MageRightFrame1, MageRightFrame2, MageRightFrame3, Mag
 
 
 //zombies
+
+//backframes
 ZombieBackFrame1 = document.getElementById("ZombieBackFrame1");
+ZombieBackFrame2 = document.getElementById("ZombieBackFrame2");
+ZombieBackFrame3 = document.getElementById("ZombieBackFrame3");
+ZombieBackFrame4 = document.getElementById("ZombieBackFrame4");
+ZombieBackFrame5 = document.getElementById("ZombieBackFrame5");
+ZombieBackFrame6 = document.getElementById("ZombieBackFrame6");
+ZombieBackFrame7 = document.getElementById("ZombieBackFrame7");
+ZombieBackFrame8 = document.getElementById("ZombieBackFrame8");
+let ZombieBackFramesArr = [ZombieBackFrame1, ZombieBackFrame2, ZombieBackFrame3, ZombieBackFrame4, ZombieBackFrame5, ZombieBackFrame6, ZombieBackFrame7, ZombieBackFrame8];
+
+//front frames
 ZombieFrontFrame1 = document.getElementById("ZombieFrontFrame1");
+ZombieFrontFrame2 = document.getElementById("ZombieFrontFrame2");
+ZombieFrontFrame3 = document.getElementById("ZombieFrontFrame3");
+ZombieFrontFrame4 = document.getElementById("ZombieFrontFrame4");
+ZombieFrontFrame5 = document.getElementById("ZombieFrontFrame5");
+ZombieFrontFrame6 = document.getElementById("ZombieFrontFrame6");
+ZombieFrontFrame7 = document.getElementById("ZombieFrontFrame7");
+ZombieFrontFrame8 = document.getElementById("ZombieFrontFrame8");
+let ZombieFrontFramesArr = [ZombieFrontFrame1, ZombieFrontFrame2, ZombieFrontFrame3, ZombieFrontFrame4, ZombieFrontFrame5, ZombieFrontFrame6, ZombieFrontFrame7, ZombieFrontFrame8];
+//left frames
 ZombieLeftFrame1 = document.getElementById("ZombieLeftFrame1");
+ZombieLeftFrame2 = document.getElementById("ZombieLeftFrame2");
+ZombieLeftFrame3 = document.getElementById("ZombieLeftFrame3");
+ZombieLeftFrame4 = document.getElementById("ZombieLeftFrame4");
+ZombieLeftFrame5 = document.getElementById("ZombieLeftFrame5");
+ZombieLeftFrame6 = document.getElementById("ZombieLeftFrame6");
+ZombieLeftFrame7 = document.getElementById("ZombieLeftFrame7");
+ZombieLeftFrame8 = document.getElementById("ZombieLeftFrame8");
+let ZombieLeftFramesArr = [ZombieLeftFrame1, ZombieLeftFrame2, ZombieLeftFrame3, ZombieLeftFrame4, ZombieLeftFrame5, ZombieLeftFrame6, ZombieLeftFrame7, ZombieLeftFrame8];
+//right frames
 ZombieRightFrame1 = document.getElementById("ZombieRightFrame1");
+ZombieRightFrame2 = document.getElementById("ZombieRightFrame2");
+ZombieRightFrame3 = document.getElementById("ZombieRightFrame3");
+ZombieRightFrame4 = document.getElementById("ZombieRightFrame4");
+ZombieRightFrame5 = document.getElementById("ZombieRightFrame5");
+ZombieRightFrame6 = document.getElementById("ZombieRightFrame6");
+ZombieRightFrame7 = document.getElementById("ZombieRightFrame7");
+ZombieRightFrame8 = document.getElementById("ZombieRightFrame8");
+let ZombieRightFramesArr = [ZombieRightFrame1, ZombieRightFrame2, ZombieRightFrame3, ZombieRightFrame4, ZombieRightFrame5, ZombieRightFrame6, ZombieRightFrame7, ZombieRightFrame8];
+
+//right frames hit
+
+HitZombieRightFrame2 = document.getElementById("HitZombieRightFrame2");
+HitZombieRightFrame3 = document.getElementById("HitZombieRightFrame3");
+HitZombieRightFrame4 = document.getElementById("HitZombieRightFrame4");
+HitZombieRightFrame5 = document.getElementById("HitZombieRightFrame5");
+HitZombieRightFrame6 = document.getElementById("HitZombieRightFrame6");
+let HitZombieRightFramesArr = [ZombieRightFrame1, HitZombieRightFrame2, HitZombieRightFrame3, HitZombieRightFrame4, HitZombieRightFrame5, HitZombieRightFrame6];
+
+//front frames hit
+HitZombieFrontFrame2 = document.getElementById("HitZombieFrontFrame2");
+HitZombieFrontFrame3 = document.getElementById("HitZombieFrontFrame3");
+HitZombieFrontFrame4 = document.getElementById("HitZombieFrontFrame4");
+HitZombieFrontFrame5 = document.getElementById("HitZombieFrontFrame5");
+HitZombieFrontFrame6 = document.getElementById("HitZombieFrontFrame6");
+let HitZombieTopFramesArr = [ZombieFrontFrame1, HitZombieFrontFrame2, HitZombieFrontFrame3, HitZombieFrontFrame4, HitZombieFrontFrame5, HitZombieFrontFrame6];
+
+//left frames hit
+HitZombieLeftFrame2 = document.getElementById("HitZombieLeftFrame2");
+HitZombieLeftFrame3 = document.getElementById("HitZombieLeftFrame3");
+HitZombieLeftFrame4 = document.getElementById("HitZombieLeftFrame4");
+HitZombieLeftFrame5 = document.getElementById("HitZombieLeftFrame5");
+HitZombieLeftFrame6 = document.getElementById("HitZombieLeftFrame6");
+let HitZombieLeftFramesArr = [ZombieLeftFrame1, HitZombieLeftFrame2, HitZombieLeftFrame3, HitZombieLeftFrame4, HitZombieLeftFrame5, HitZombieLeftFrame6];
+
+//back frames hit
+HitZombieBackFrame2 = document.getElementById("HitZombieBackFrame2");
+HitZombieBackFrame3 = document.getElementById("HitZombieBackFrame3");
+HitZombieBackFrame4 = document.getElementById("HitZombieBackFrame4");
+HitZombieBackFrame5 = document.getElementById("HitZombieBackFrame5");
+HitZombieBackFrame6 = document.getElementById("HitZombieBackFrame6");
+let HitZombieBottomFramesArr = [ZombieBackFrame1, HitZombieBackFrame2, HitZombieBackFrame3, HitZombieBackFrame4, HitZombieBackFrame5, HitZombieBackFrame6];
+
 
 //Game Progression
 let roundNum = 1;
@@ -97,7 +169,7 @@ class Enemy1{
         this.rendered = false;
         this.health = 100;
         this.image = image;
-
+        this.hitting = false;
         // this.render = function() {
         //     ctx.fillStyle = color;
         //     ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -106,6 +178,8 @@ class Enemy1{
             ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         }
     }
+
+    
     
     
     
@@ -183,6 +257,43 @@ function detectHit(bulletClass, EnemyClass){
         EnemyClass.health -= 50;
         return true;
     }
+
+}
+
+function WalkAnimation(enemy, rightArr, leftArr, topArr, bottomArr, walkFrameCounter, hitFrameCounter){
+    if (enemy.startPos === "Left"){
+        if (enemy.hitting === false){
+            enemy.image = rightArr[walkFrameCounter];
+        }
+        else if (enemy.hitting === true){
+            enemy.image = HitZombieRightFramesArr[hitCounter];
+        }
+    }
+    else if (enemy.startPos === "Right"){
+        if (enemy.hitting === false){
+            enemy.image = ZombieLeftFramesArr[walkFrameCounter];
+        }
+        else if (enemy.hitting === true){
+            enemy.image = HitZombieLeftFramesArr[hitFrameCounter];
+        }
+    }
+    else if (enemy.startPos === "Top"){
+        
+        if (enemy.hitting === false){
+            enemy.image = topArr[walkFrameCounter];
+        }
+        else if (enemy.hitting === true){
+            enemy.image = HitZombieTopFramesArr[hitFrameCounter];
+        }
+    }
+    else if (enemy.startPos === "Bottom"){
+        if (enemy.hitting === false){
+            enemy.image = bottomArr[walkFrameCounter];
+        }
+        else if (enemy.hitting === true){
+            enemy.image = HitZombieBottomFramesArr[hitFrameCounter];
+        }
+    }
 }
 
 function delay(arr, i) {
@@ -190,6 +301,8 @@ function delay(arr, i) {
       arr[i].render();
     }, 2000);
   }
+
+
 
 //Starting Screen
 document.addEventListener('keydown', movementHandler);
@@ -360,8 +473,8 @@ let enemyCounter = 0;
 
 
 
-
-
+let walkCounter = 0;
+let hitCounter = 0;
 //Game Loop
 function gameLoop(){
     ctx.clearRect(0, 0, game.width, game.height);
@@ -380,12 +493,24 @@ function gameLoop(){
     }
 
     
+
     for (let i = 0; i < roundOneArr.length; i++){
         if (roundOneArr[i].rendered === true){
             roundOneArr[i].render();
-            
+            WalkAnimation(roundOneArr[i], ZombieRightFramesArr, ZombieLeftFramesArr, ZombieFrontFramesArr, ZombieBackFramesArr, walkCounter, hitCounter);
         }
     }
+    walkCounter++;
+    if (walkCounter >= 7){
+        walkCounter = 0;
+    }
+    if (hitCounter >= 5){
+        hitCounter = 0;
+    }
+    hitCounter++;
+    
+    
+    
     
 
     
@@ -419,6 +544,7 @@ function gameLoop(){
             health -= 1;
             Math.round(health * 100) / 100
             healthLevelContent.textContent = `${health}`;
+            roundOneArr[i].hitting = true;
             if (health <= 0){
                 //alert("GAME OVER");
                 //break;
