@@ -11,6 +11,7 @@ function off() {
     gamePaused = false;
 }
 
+
 //GLOBAL VARIABLES
 var game = document.getElementById('game');
 const roundNumContent = document.getElementById('roundNum');
@@ -19,6 +20,7 @@ const killCount = document.getElementById('kill-count');
 const healthLevelContent = document.getElementById('healthLevel');
 const ctx = game.getContext('2d');
 const startButton = document.getElementById('start-button');
+const buyScreen = document.getElementById('buy-screen');
 console.log(game.width+" "+game.height);
 
 let rambo; //Main Character
@@ -296,6 +298,21 @@ function WalkAnimation(enemy, rightArr, leftArr, topArr, bottomArr, walkFrameCou
     }
 }
 
+function BuyScreen(){
+
+    ctx.clearRect(0, 0, game.width, game.height);
+    // getElementById('game').style.display = none;
+    //buyScreen.style.display = 'block';
+    //getElementById('game').style.display = 'block';
+    document.getElementById('buy-screen').style.display = 'block';
+    document.getElementById('game').style.display = 'none';
+    gamePaused = true;
+}
+
+function GettingHit(){
+
+}
+
 function delay(arr, i) {
     setTimeout(() => {
       arr[i].render();
@@ -308,11 +325,9 @@ function delay(arr, i) {
 document.addEventListener('keydown', movementHandler);
 window.addEventListener('DOMContentLoaded', function() {
     rambo = new Hero((game.width/2)-16, (game.height/2)-13.25, 32, 26.5, 'blue', MageFrontFrame1); //32 53
-    //rambo = new Hero(achiliesFacingLeft, game.width/2, game.height/2);
-    // roundNumContent.textContent = `Round: ${roundNum}`;
     const runningGame = this.setInterval(function() {
         if (gamePaused !== true){
-            gameLoop();
+            gameLoop2();
         } 
     }, 60);
     
@@ -471,14 +486,106 @@ console.log(roundOneArr);
 let enemyCounter = 0;
 
 
-
+// let bar = hBar.find('.bar');
+// let hit = hBar.find('.hit');
 
 let walkCounter = 0;
 let hitCounter = 0;
 //Game Loop
+function roundOne(){
+    for (let i = 0; i < roundOneArr.length; i++) {
+        setTimeout(function() {
+            if (roundOneArr[i] !== undefined){
+                 roundOneArr[i].rendered = true;
+            }
+        }, 3000 * i+1);
+    }
+    for (let i = 0; i < roundOneArr.length; i++){
+        if (roundOneArr[i].rendered === true){
+            roundOneArr[i].render();
+            WalkAnimation(roundOneArr[i], ZombieRightFramesArr, ZombieLeftFramesArr, ZombieFrontFramesArr, ZombieBackFramesArr, walkCounter, hitCounter);
+        }
+    }
+    walkCounter++;
+    if (walkCounter >= 7){
+        walkCounter = 0;
+    }
+    if (hitCounter >= 5){
+        hitCounter = 0;
+    }
+    hitCounter++;
+
+    setTimeout(function(){
+        for (let i = 0; i < roundOneArr.length; i++){
+            if (!detectHit(roundOneArr[i], rambo)){
+            if (roundOneArr[i].rendered === true){
+                if (roundOneArr[i].startPos === 'Top'){
+                        roundOneArr[i].y += 0.5;
+                }
+                else if (roundOneArr[i].startPos === 'Right'){
+                    roundOneArr[i].x -= 0.5;
+                }
+                else if (roundOneArr[i].startPos === 'Bottom'){
+                    
+                    roundOneArr[i].y -= 0.5;
+                
+                }
+                else if (roundOneArr[i].startPos === 'Left'){
+                        roundOneArr[i].x += 0.5;
+                }
+            }
+        }
+            
+        }
+         
+        
+    }, 10);
+
+    for (let i = 0; i < roundOneArr.length; i++){
+        if (detectHit(roundOneArr[i], rambo)){
+            // gam
+            health -= 1;
+            document.getElementById('bar').style.width = health + '%';
+            Math.round(health * 100) / 100
+            healthLevelContent.textContent = `${health}`;
+            roundOneArr[i].hitting = true;
+            if (health <= 0){
+                //alert("GAME OVER");
+                //break;
+                document.getElementById("gameover-screen").style.display = "block";
+            }
+        }
+        if (arrayOfBullets[arrayOfBullets.length-1].collision === 0){
+            detectHit(arrayOfBullets[arrayOfBullets.length-1], roundOneArr[i]);
+            if (roundOneArr[i].health <= 0){
+                roundOneArr.splice(i, 1);
+                totalKills++;
+                killCount.textContent = `Total Kills: ${totalKills}`;
+            }
+            
+        }
+    }
+
+    
+    if (totalKills === 25){
+        document.getElementById("win-screen").style.display = "block";
+    }
+    // if (totalKills > 1){
+    //     BuyScreen();
+    // }
+
+    rambo.render();
+
+}
+
+function gameLoop2(){
+    ctx.clearRect(0, 0, game.width, game.height);
+    roundOne();
+    rambo.render();
+}
+
 function gameLoop(){
     ctx.clearRect(0, 0, game.width, game.height);
-    
     
     for (let i=0; i<roundOneArr.length; i++) {
         task(i);
@@ -539,9 +646,12 @@ function gameLoop(){
          
         
     }, 10);
+    
     for (let i = 0; i < roundOneArr.length; i++){
         if (detectHit(roundOneArr[i], rambo)){
+            // gam
             health -= 1;
+            document.getElementById('bar').style.width = health + '%';
             Math.round(health * 100) / 100
             healthLevelContent.textContent = `${health}`;
             roundOneArr[i].hitting = true;
@@ -566,8 +676,11 @@ function gameLoop(){
     if (totalKills === 25){
         document.getElementById("win-screen").style.display = "block";
     }
+    if (totalKills > 1){
+        BuyScreen();
+    }
+    console.log(gamePaused);
     
-
     rambo.render();
     
 
